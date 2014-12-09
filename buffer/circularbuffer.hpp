@@ -49,9 +49,9 @@ class _const_circular_buffer_itr : public std::iterator<std::input_iterator_tag,
 class CircularBuffer{
 	private:
 		char * buffer;
-		std::size_t capacity;
-		std::size_t start; //offsets from buffer
-		std::size_t currsize;
+		std::size_t capacity_;
+		std::size_t start_; //offsets from buffer
+		std::size_t currsize_;
 		
 		std::size_t lastidx() const; //get the inner index of the last item. used internally
 
@@ -63,11 +63,12 @@ class CircularBuffer{
 			Constructor
 			@param _size buffer size to be allocated.
 		*/
-		CircularBuffer(std::size_t _size) : capacity(_size),start(0),currsize(0) { buffer = new char[currsize]; };
+		CircularBuffer(std::size_t _size) : capacity_(_size),start_(0),currsize_(0) { buffer = new char[currsize]; };
 		CircularBuffer( const CircularBuffer& o);
 		~CircularBuffer() { delete[] buffer; };
 		std::size_t size() const;
 		std::size_t availsize() const;
+		std::size_t capacity() const;
 		char & operator[](std::size_t idx);
 		const char & operator[](std::size_t idx) const;
 		CircularBuffer & operator=(const std::string &input);
@@ -81,7 +82,6 @@ class CircularBuffer{
 		std::string pop_as_string(size_t len);
 		const_iterator begin() const;
 		const_iterator end() const;
-
 };
 
 
